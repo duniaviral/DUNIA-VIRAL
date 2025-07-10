@@ -1,36 +1,15 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>DUNIA VIRAL - Galeri</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUNIA VIRAL - Video Galeri</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>DUNIA VIRAL</h1>
-  <form method="GET" action="index.html">
-    <input type="text" id="search" placeholder="Cari video..." style="padding:5px; width:200px;">
-  </form>
-  <div class="gallery" id="video-list"></div>
-
-  <script src="data.js"></script>
-  <script>
-    const container = document.getElementById("video-list");
-    const searchInput = document.getElementById("search");
-    function showVideos(keyword = '') {
-      container.innerHTML = '';
-      videos.filter(v => v.title.toLowerCase().includes(keyword.toLowerCase())).forEach(v => {
-        const box = document.createElement("div");
-        box.className = "video-box";
-        box.innerHTML = `
-          <a href="video.html?id=${v.embed_code}">
-            <img src="${v.thumbnail}" alt="Thumb">
-            <p>${v.title}</p>
-          </a>`;
-        container.appendChild(box);
-      });
-    }
-    searchInput.addEventListener("input", () => showVideos(searchInput.value));
-    showVideos();
-  </script>
+    <header><h1>DUNIA VIRAL</h1><input type="text" id="search" placeholder="Cari video..."></header>
+    <main id="video-gallery"></main>
+    <script src="script.js"></script>
 </body>
 </html>
