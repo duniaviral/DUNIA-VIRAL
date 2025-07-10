@@ -23,7 +23,7 @@ function tampilkanVideo(list) {
       <img src="${video.thumbnail}" alt="${video.judul}">
       <div class="badge">${video.kategori}</div>
       <h4>${video.judul}</h4>
-      <a href="video.html?id=${index}" style="color:#e91e63;">Tonton Video</a>
+      <a href="video.html?id=${index}" class="tonton">Tonton Video</a>
     `;
     container.appendChild(div);
   });
@@ -65,5 +65,11 @@ function filterPemain(nama) {
   const hasil = semuaVideo.filter(
     v => v.kategori.toLowerCase() === "indo" && v.pemain.toLowerCase() === nama.toLowerCase()
   );
+  tampilkanVideo(hasil);
+}
+
+function cariVideo() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  const hasil = semuaVideo.filter(v => v.judul.toLowerCase().includes(keyword));
   tampilkanVideo(hasil);
 }
