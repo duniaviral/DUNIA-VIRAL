@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <link rel="stylesheet" href="style.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DUNIA VIRAL - Streaming</title>
-  <style>
-    body { font-family: sans-serif; background: #000; color: #fff; margin: 0; padding: 0; }
-    header { background: #e91e63; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; }
-    nav { background: #111; padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-    nav a { color: white; text-decoration: none; padding: 8px 16px; background: #333; border-radius: 5px; }
-    nav a:hover { background: #e91e63; }
-    #video-container { padding: 15px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-    .video-card { background: #111; padding: 10px; border-radius: 5px; width: 200px; text-align: center; }
-    .video-card img { width: 100%; border-radius: 5px; }
-    .badge { display: inline-block; padding: 3px 6px; background: #e91e63; border-radius: 4px; font-size: 12px; margin-top: 5px; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>DUNIA VIRAL</header>
-  <nav>
-    <a href="#" onclick="tampilkanSemua()">Home</a>
-    <a href="#" onclick="filterKategori('INDO')">INDO</a>
-    <a href="#" onclick="filterPemain('andini')">ANDINI</a>
+
+  <nav class="kategori-menu">
+    <ul>
+      <li><a href="#" onclick="tampilkanSemua()">Semua</a></li>
+      <li><a href="#" onclick="filterKategori('populer')">Populer</a></li>
+      <li><a href="#" onclick="filterKategori('indo')">INDO</a></li>
+      <li><a href="#" onclick="filterKategori('subindo')">SUB INDO</a></li>
+      <li><a href="#" onclick="filterKategori('asian')">ASIAN</a></li>
+      <li><a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a></li>
+      <li><a href="#" onclick="filterKategori('cosplay')">COSPLAY</a></li>
+      <li><a href="#" onclick="filterKategori('bule')">BULE</a></li>
+    </ul>
   </nav>
+
+  <div class="subkategori" id="subkategori-pemain" style="display:none; text-align:center; margin-top:10px;">
+    <b>Pilih Pemain INDO:</b>
+    <span id="pemain-buttons"></span>
+  </div>
 
   <div id="video-container">Memuat video...</div>
 
