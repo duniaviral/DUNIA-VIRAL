@@ -2,134 +2,51 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DUNIA VIRAL - Beranda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUNIA VIRAL</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-    }
-
-    header {
-      background: #111;
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .burger {
-      font-size: 24px;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-
-    nav.kategori-menu {
-      background: #111;
-      padding: 10px 15px;
-      display: none;
-    }
-
-    nav.kategori-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav.kategori-menu li {
-      margin-bottom: 8px;
-    }
-
-    nav.kategori-menu a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .search-bar {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .search-bar input {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 8px;
-      border: none;
-    }
-
-    .video-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      padding: 10px;
-    }
-
-    .video-card {
-      background: #111;
-      width: 150px;
-      border-radius: 8px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .video-card:hover {
-      transform: scale(1.03);
-    }
-
-    .video-card img {
-      width: 100%;
-      display: block;
-    }
-
-    .video-card p {
-      padding: 8px;
-      font-size: 14px;
-      color: white;
-    }
-  </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">DUNIA VIRAL</div>
-  <button class="burger" onclick="toggleMenu()">☰</button>
-</header>
+  <!-- HEADER + MENU BURGER -->
+  <header>
+    <div class="logo">DUNIA VIRAL</div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </header>
 
-<nav class="kategori-menu" id="kategoriMenu">
-  <ul>
-    <li><a href="#" onclick="filterKategori('semua')">SEMUA</a></li>
-    <li><a href="#" onclick="filterKategori('populer')">POPULER</a></li>
-    <li><a href="#" onclick="filterKategori('indo')">INDO</a></li>
-    <li><a href="#" onclick="filterKategori('subindo')">SUB INDO</a></li>
-    <li><a href="#" onclick="filterKategori('asian')">ASIAN</a></li>
-    <li><a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a></li>
-    <li><a href="#" onclick="filterKategori('cosplay')">COSPLAY</a></li>
-    <li><a href="#" onclick="filterKategori('bule')">BULE</a></li>
-  </ul>
-</nav>
+  <!-- MENU KATEGORI -->
+  <nav class="kategori-menu" id="menuKategori">
+    <ul>
+      <li><a href="#" onclick="filterKategori('semua')">SEMUA</a></li>
+      <li><a href="#" onclick="filterKategori('populer')">POPULER</a></li>
+      <li><a href="#" onclick="filterKategori('indo')">INDO</a></li>
+      <li><a href="#" onclick="filterKategori('subindo')">SUB INDO</a></li>
+      <li><a href="#" onclick="filterKategori('asian')">ASIAN</a></li>
+      <li><a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a></li>
+      <li><a href="#" onclick="filterKategori('cosplay')">COSPLAY</a></li>
+      <li><a href="#" onclick="filterKategori('bule')">BULE</a></li>
+    </ul>
+  </nav>
 
-<div class="search-bar">
-  <input type="text" id="searchInput" placeholder="Cari video...">
-</div>
+  <!-- SEARCH -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Cari judul atau pemain..." />
+  </div>
 
-<div class="video-list" id="videoList">
-  <!-- Video akan dimuat lewat JS -->
-</div>
+  <!-- VIDEO CONTAINER -->
+  <main>
+    <div id="videoContainer" class="video-grid"></div>
+  </main>
 
-<script src="index-script.js"></script>
+  <!-- FOOTER -->
+  <footer><p>© DUNIA VIRAL 2025</p></footer>
+
+  <!-- SCRIPTS -->
+  <script src="index-script.js"></script>
+  <script>
+    function toggleMenu() {
+      document.getElementById('menuKategori').classList.toggle('show');
+    }
+  </script>
 </body>
 </html>
