@@ -1,75 +1,60 @@
-let semuaVideo = [];
+let data = [];
 
 fetch('data.json')
-  .then(res => res.json())
-  .then(data => {
-    semuaVideo = data;
-    tampilkanVideo(semuaVideo);
+  .then(response => response.json())
+  .then(json => {
+    data = json;
+    tampilkanVideo();
   });
 
-function tampilkanVideo(list) {
-  const container = document.getElementById('video-container');
-  container.innerHTML = "";
-
-  if (list.length === 0) {
-    container.innerHTML = "<p>Tidak ada video ditemukan.</p>";
-    return;
-  }
-
-  list.forEach((video, index) => {
-    const div = document.createElement('div');
-    div.className = 'video-card';
-    div.innerHTML = `
-      <img src="${video.thumbnail}" alt="${video.judul}">
-      <div class="badge">${video.kategori}</div>
-      <h4>${video.judul}</h4>
-      <a href="video.html?id=${index}" class="tonton">Tonton Video</a>
+function tampilkanVideo(filter = 'semua') {
+  const list = document.getElementById('videoList');
+  list.innerHTML = '';
+  const hasil = data.filter(v => filter === 'semua' || v.kategori === filter);
+  hasil.forEach(video => {
+    const item = document.createElement('div');
+    item.className = 'video-item';
+    item.innerHTML = `
+      <a href="video.html?judul=${encodeURIComponent(video.judul)}">
+        <img src="${video.thumbnail}" alt="${video.judul}">
+        <h3>${video.judul}</h3>
+      </a>
     `;
-    container.appendChild(div);
+    list.appendChild(item);
   });
 }
 
-function tampilkanSemua() {
-  tampilkanVideo(semuaVideo);
-  document.getElementById("subkategori-pemain").style.display = "none";
-}
-
-function filterKategori(kategori) {
-  const hasil = semuaVideo.filter(v => v.kategori.toLowerCase() === kategori.toLowerCase());
-  tampilkanVideo(hasil);
-
-  const subkategori = document.getElementById("subkategori-pemain");
-  const tombolPemain = document.getElementById("pemain-buttons");
-
-  if (kategori.toLowerCase() === "indo") {
-    subkategori.style.display = "block";
-
-    const pemainUnik = [...new Set(semuaVideo
-      .filter(v => v.kategori.toLowerCase() === "indo")
-      .map(v => v.pemain.toLowerCase()))];
-
-    tombolPemain.innerHTML = "";
-    pemainUnik.forEach(nama => {
-      const btn = document.createElement("button");
-      btn.innerText = nama.charAt(0).toUpperCase() + nama.slice(1);
-      btn.onclick = () => filterPemain(nama);
-      btn.className = "btn-pemain";
-      tombolPemain.appendChild(btn);
-    });
-  } else {
-    subkategori.style.display = "none";
-  }
-}
-
-function filterPemain(nama) {
-  const hasil = semuaVideo.filter(
-    v => v.kategori.toLowerCase() === "indo" && v.pemain.toLowerCase() === nama.toLowerCase()
-  );
-  tampilkanVideo(hasil);
+function filterKategori(kat) {
+  tampilkanVideo(kat);
 }
 
 function cariVideo() {
-  const keyword = document.getElementById("searchInput").value.toLowerCase();
-  const hasil = semuaVideo.filter(v => v.judul.toLowerCase().includes(keyword));
-  tampilkanVideo(hasil);
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const hasil = data.filter(video => video.judul.toLowerCase().includes(input));
+  const list = document.getElementById('videoList');
+  list.innerHTML = '';
+  hasil.forEach(video => {
+    const item = document.createElement('div');
+    item.className = 'video-item';
+    item.innerHTML = `
+      <a href="video.html?judul=${encodeURIComponent(video.judul)}">
+        <img src="${video.thumbnail}" alt="${video.judul}">
+        <h3>${video.judul}</h3>
+      </a>
+    `;
+    list.appendChild(item);
+  });
 }
+
+function toggleMenu() {
+  const menu = document.getElementById('sideMenu');
+  menu.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.side-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('sideMenu').classList.remove('open');
+    });
+  });
+});
