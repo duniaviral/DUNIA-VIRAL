@@ -23,13 +23,14 @@
     }
     .side-menu {
       background: #222;
-      width: 200px;
+      width: 220px;
       position: fixed;
       top: 0;
-      left: -200px;
+      left: -220px;
       height: 100%;
       padding-top: 60px;
       transition: 0.3s ease;
+      overflow-y: auto;
     }
     .side-menu a {
       display: block;
@@ -41,29 +42,6 @@
       background: #333;
     }
     .side-menu.open { left: 0; }
-    .kategori-menu {
-      overflow-x: auto;
-      background: #222;
-      white-space: nowrap;
-    }
-    .kategori-menu ul {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      list-style: none;
-    }
-    .kategori-menu li {
-      margin: 0;
-    }
-    .kategori-menu a {
-      display: inline-block;
-      padding: 10px 16px;
-      color: #fff;
-      text-decoration: none;
-    }
-    .kategori-menu a:hover {
-      background: #444;
-    }
     #searchInput {
       width: 100%;
       padding: 10px;
@@ -107,21 +85,16 @@
 
   <div id="sideMenu" class="side-menu">
     <a href="index.html">Beranda</a>
-    <a href="admin.html">Admin</a>
+    <a href="#" onclick="filterKategori('semua')">Semua</a>
+    <a href="#" onclick="filterKategori('populer')">Populer</a>
+    <a href="#" onclick="filterKategori('indo')">INDO</a>
+    <a href="#" onclick="filterKategori('subindo')">SUB INDO</a>
+    <a href="#" onclick="filterKategori('asian')">ASIAN</a>
+    <a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a>
+    <a href="#" onclick="filterKategori('cosplay')">COSPLAY</a>
+    <a href="#" onclick="filterKategori('bule')">BULE</a>
+    <a href="admin.html">Admin Panel</a>
   </div>
-
-  <nav class="kategori-menu">
-    <ul>
-      <li><a href="#" onclick="filterKategori('semua')">Semua</a></li>
-      <li><a href="#" onclick="filterKategori('populer')">Populer</a></li>
-      <li><a href="#" onclick="filterKategori('indo')">INDO</a></li>
-      <li><a href="#" onclick="filterKategori('subindo')">SUB INDO</a></li>
-      <li><a href="#" onclick="filterKategori('asian')">ASIAN</a></li>
-      <li><a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a></li>
-      <li><a href="#" onclick="filterKategori('cosplay')">COSPLAY</a></li>
-      <li><a href="#" onclick="filterKategori('bule')">BULE</a></li>
-    </ul>
-  </nav>
 
   <input type="text" id="searchInput" onkeyup="cariVideo()" placeholder="Cari video...">
 
