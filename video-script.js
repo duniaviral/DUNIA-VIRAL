@@ -1,34 +1,40 @@
-const container = document.getElementById("videoContainer"); const params = new URLSearchParams(window.location.search); const judul = params.get("judul");
+const urlParams = new URLSearchParams(window.location.search);
+const pemain = urlParams.get("pemain");
 
-fetch("data.json") .then(res => res.json()) .then(data => { const current = data.find(v => v.judul === judul); if (!current) { container.innerHTML = "<p style='text-align:center;'>Video tidak ditemukan.</p>"; return; }
+fetch("data.json")
+  .then(res => res.json())
+  .then(data => {
+    const videoUtama = data.find(v => v.pemain === pemain);
+    const videoLain = data.filter(v => v.pemain === pemain);
 
-container.innerHTML = `
-  <h2 style="text-align:center; color:white;">${current.judul}</h2>
-  <iframe src="${current.link}" allowfullscreen></iframe>
-  <h3 style="margin-top:30px;">Episode lainnya (${current.pemain})</h3>
-  <div class="related-videos" id="relatedVideos"></div>
-  <div class="back-button">
-    <a href="index.html">⬅ Kembali ke Beranda</a>
-  </div>
-`;
+    const videoPlayer = document.getElementById("videoPlayer");
+    const judulVideo = document.getElementById("judulVideo");
 
-const relatedContainer = document.getElementById("relatedVideos");
+    if (videoUtama) {
+      judulVideo.textContent = videoUtama.judul;
+      videoPlayer.innerHTML = `
+        <iframe src="${videoUtama.link}" allowfullscreen></iframe>
+      `;
+    } else {
+      judulVideo.textContent = "Video tidak ditemukan.";
+    }
 
-const related = data.filter(
-  v => v.pemain === current.pemain && v.judul !== current.judul
-);
-
-related.forEach(video => {
-  const div = document.createElement("div");
-  div.className = "video-card";
-  div.innerHTML = `
-    <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-      <img src="${video.thumbnail}" alt="${video.judul}">
-      <p>${video.judul}</p>
-    </a>
-  `;
-  relatedContainer.appendChild(div);
-});
-
-});
-
+    const videoLainnya = document.getElementById("videoLainnya");
+    if (videoLain.length > 1) {
+      videoLainnya.innerHTML = `<h3>Video Lainnya dari ${pemain}</h3><div class="video-list"></div>`;
+      const list = videoLainnya.querySelector(".video-list");
+      videoLain.forEach(v => {
+        if (v.link !== videoUtama.link) {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <a href="video.html?pemain=${encodeURIComponent(v.pemain)}&judul=${encodeURIComponent(v.judul)}">
+              <img src="${v.thumbnail}" alt="${v.judul}">
+              <p class="judul">${v.judul}</p>
+            </a>
+          `;
+          list.appendChild(card);
+        }
+      });
+    }
+  });
