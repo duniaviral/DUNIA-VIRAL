@@ -3,55 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Generator - DUNIA VIRAL</title>
+  <title>Admin Manual - DUNIA VIRAL</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       background: #111;
       color: #fff;
-      font-family: sans-serif;
       padding: 20px;
     }
-    form {
-      max-width: 500px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    input, select, textarea, button {
+    input, select, button, textarea {
+      width: 100%;
+      margin-bottom: 12px;
       padding: 10px;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
+      border-radius: 5px;
     }
     input, select, textarea {
       background: #222;
-      color: white;
+      color: #fff;
     }
     button {
-      background: #007bff;
+      background-color: #28a745;
       color: white;
       font-weight: bold;
       cursor: pointer;
     }
-    textarea {
-      height: 100px;
+    button:hover {
+      background-color: #218838;
     }
-    .output {
-      margin-top: 20px;
-      background: #222;
-      padding: 10px;
-      border-radius: 6px;
+    textarea {
+      height: 160px;
     }
   </style>
 </head>
 <body>
-  <h2 style="text-align:center;">Generator JSON Video</h2>
-  <form id="adminForm">
-    <input type="text" id="judul" placeholder="Judul Video" required />
-    <input type="text" id="thumbnail" placeholder="Link Thumbnail" required />
-    <input type="text" id="link" placeholder="Link Video" required />
-    <input type="text" id="kategori" placeholder="Kategori" required />
+
+  <h2>🛠 Tambah Video (Manual)</h2>
+
+  <form id="videoForm">
+    <input type="text" id="judul" placeholder="Judul Video" required>
+    <input type="text" id="thumbnail" placeholder="Link Thumbnail" required>
+    <input type="text" id="link" placeholder="Link Video (Doodstream)" required>
+    
     <select id="kategori" required>
       <option value="">Pilih Kategori</option>
       <option value="indo">INDO</option>
@@ -62,32 +55,29 @@
       <option value="bule">BULE</option>
       <option value="populer">POPULER</option>
     </select>
-    <button type="submit">Buat JSON</button>
+
+    <input type="text" id="pemain" placeholder="Nama Pemain" required>
+
+    <button type="button" onclick="generateJSON()">🔧 Buat JSON</button>
   </form>
 
-  <div class="output">
-    <h3>Hasil JSON:</h3>
-    <textarea id="jsonOutput" readonly></textarea>
-  </div>
+  <h3>📄 Hasil JSON:</h3>
+  <textarea id="output" readonly></textarea>
 
   <script>
-    const form = document.getElementById('adminForm');
-    const output = document.getElementById('jsonOutput');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const video = {
-        judul: document.getElementById('judul').value,
-        thumbnail: document.getElementById('thumbnail').value,
-        link: document.getElementById('link').value,
-        pemain: document.getElementById('kategori').value,
-        kategori: document.getElementById('pemain').value
+    function generateJSON() {
+      const data = {
+        judul: document.getElementById("judul").value.trim(),
+        thumbnail: document.getElementById("thumbnail").value.trim(),
+        link: document.getElementById("link").value.trim(),
+        kategori: document.getElementById("kategori").value,
+        pemain: document.getElementById("pemain").value.trim()
       };
 
-      const jsonStr = JSON.stringify(video, null, 2);
-      output.value = jsonStr;
-    });
+      const output = JSON.stringify(data, null, 2);
+      document.getElementById("output").value = output;
+    }
   </script>
+
 </body>
 </html>
