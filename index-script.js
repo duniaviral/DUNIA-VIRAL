@@ -1,38 +1,45 @@
-fetch("data.json")
-  .then(response => response.json())
-  .then(data => {
-    const videoContainer = document.getElementById("videoContainer");
+// index-script.js yang kamu minta sebelumnya: tampilkan semua video langsung dari data.json
 
-    // Hitung jumlah video per pemain
-    const pemainCount = {};
-    data.forEach(video => {
-      pemainCount[video.pemain] = (pemainCount[video.pemain] || 0) + 1;
-    });
+fetch("data.json") .then((res) => res.json()) .then((data) => { const videoContainer = document.getElementById("videoContainer"); const searchInput = document.getElementById("searchInput");
 
-    // Ambil 1 video per pemain
-    const pemainVideoMap = {};
-    data.forEach(video => {
-      if (!pemainVideoMap[video.pemain]) {
-        pemainVideoMap[video.pemain] = video;
-      }
-    });
-
-    // Urutkan pemain berdasarkan jumlah video (populer duluan)
-    const sortedPemain = Object.keys(pemainVideoMap).sort((a, b) => {
-      return (pemainCount[b] || 0) - (pemainCount[a] || 0);
-    });
-
-    // Tampilkan
-    sortedPemain.forEach(pemain => {
-      const video = pemainVideoMap[pemain];
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-          <img src="${video.thumbnail}" alt="${video.judul}" />
-          <p>${video.pemain}</p>
-        </a>
-      `;
-      videoContainer.appendChild(card);
-    });
+function tampilkanVideo(videoList) {
+  videoContainer.innerHTML = "";
+  videoList.forEach(video => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <a href="video.html?judul=${encodeURIComponent(video.judul)}">
+        <img src="${video.thumbnail}" alt="${video.judul}" />
+        <p class="judul">${video.judul}</p>
+        <p class="pemain">${video.pemain}</p>
+      </a>
+    `;
+    videoContainer.appendChild(card);
   });
+}
+
+// Tampilkan semua di awal
+tampilkanVideo(data);
+
+// Fitur pencarian
+searchInput.addEventListener("input", () => {
+  const kata = searchInput.value.toLowerCase();
+  const hasil = data.filter(video =>
+    video.judul.toLowerCase().includes(kata) ||
+    video.pemain.toLowerCase().includes(kata)
+  );
+  tampilkanVideo(hasil);
+});
+
+// Fitur filter kategori
+window.filterKategori = function (kategori) {
+  if (kategori === "semua") {
+    tampilkanVideo(data);
+  } else {
+    const hasil = data.filter(video => video.kategori.toLowerCase() === kategori.toLowerCase());
+    tampilkanVideo(hasil);
+  }
+};
+
+});
+
