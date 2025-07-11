@@ -1,34 +1,31 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DUNIA VIRAL</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="header">
-    <div class="burger" onclick="toggleMenu()">
-      <div></div><div></div><div></div>
-    </div>
+  <header>
     <h1>DUNIA VIRAL</h1>
-  </div>
+    <button id="hamburger">☰</button>
+  </header>
 
-  <div id="sideMenu" class="side-menu">
-    <a href="index.html">Beranda</a>
-    <a href="#" onclick="filterKategori('semua')">Semua</a>
-    <a href="#" onclick="filterKategori('populer')">Populer</a>
-    <a href="#" onclick="filterKategori('indo')">INDO</a>
-    <a href="#" onclick="filterKategori('subindo')">SUB INDO</a>
-    <a href="#" onclick="filterKategori('asian')">ASIAN</a>
-    <a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a>
-    <a href="#" onclick="filterKategori('cosplay')">COSPLAY</a>
-    <a href="#" onclick="filterKategori('bule')">BULE</a>
-    <a href="admin.html">Admin Panel</a>
-  </div>
+  <nav id="menu" class="hidden">
+    <ul>
+      <li><a href="#" onclick="filterKategori('semua')">Semua</a></li>
+      <li><a href="#" onclick="filterKategori('populer')">Populer</a></li>
+      <li><a href="#" onclick="filterKategori('indo')">INDO</a></li>
+      <li><a href="#" onclick="filterKategori('subindo')">SUB INDO</a></li>
+      <li><a href="#" onclick="filterKategori('asian')">ASIAN</a></li>
+      <li><a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a></li>
+      <li><a href="#" onclick="filterKategori('cosplay')">COSPLAY</a></li>
+      <li><a href="#" onclick="filterKategori('bule')">BULE</a></li>
+    </ul>
+  </nav>
 
-  <input type="text" id="searchInput" onkeyup="cariVideo()" placeholder="Cari video...">
-  <div id="videoList" class="video-list"></div>
+  <main id="video-list"></main>
 
   <script src="script.js"></script>
 </body>
