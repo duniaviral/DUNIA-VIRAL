@@ -1,60 +1,38 @@
+const menu = document.getElementById('menu');
+document.getElementById('hamburger').onclick = () => {
+  menu.classList.toggle('hidden');
+  menu.style.display = menu.classList.contains('hidden') ? 'none' : 'block';
+};
+
 let data = [];
 
 fetch('data.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(json => {
     data = json;
-    tampilkanVideo();
+    tampilkanVideo('semua');
   });
 
-function tampilkanVideo(filter = 'semua') {
-  const list = document.getElementById('videoList');
-  list.innerHTML = '';
-  const hasil = data.filter(v => filter === 'semua' || v.kategori === filter);
+function tampilkanVideo(kategori) {
+  const container = document.getElementById('video-list');
+  container.innerHTML = '';
+
+  const hasil = kategori === 'semua'
+    ? data
+    : data.filter(v => v.kategori === kategori);
+
   hasil.forEach(video => {
-    const item = document.createElement('div');
-    item.className = 'video-item';
-    item.innerHTML = `
-      <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-        <img src="${video.thumbnail}" alt="${video.judul}">
-        <h3>${video.judul}</h3>
-      </a>
+    container.innerHTML += `
+      <div class="card">
+        <a href="video.html?judul=${encodeURIComponent(video.judul)}">
+          <img src="${video.thumbnail}" alt="${video.judul}">
+          <div class="card-title">${video.judul}</div>
+        </a>
+      </div>
     `;
-    list.appendChild(item);
   });
 }
 
 function filterKategori(kat) {
   tampilkanVideo(kat);
 }
-
-function cariVideo() {
-  const input = document.getElementById('searchInput').value.toLowerCase();
-  const hasil = data.filter(video => video.judul.toLowerCase().includes(input));
-  const list = document.getElementById('videoList');
-  list.innerHTML = '';
-  hasil.forEach(video => {
-    const item = document.createElement('div');
-    item.className = 'video-item';
-    item.innerHTML = `
-      <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-        <img src="${video.thumbnail}" alt="${video.judul}">
-        <h3>${video.judul}</h3>
-      </a>
-    `;
-    list.appendChild(item);
-  });
-}
-
-function toggleMenu() {
-  const menu = document.getElementById('sideMenu');
-  menu.classList.toggle('open');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.side-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('sideMenu').classList.remove('open');
-    });
-  });
-});
