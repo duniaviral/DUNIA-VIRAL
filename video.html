@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Putar Video | DUNIA VIRAL</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Video - DUNIA VIRAL</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>DUNIA VIRAL - Pemutar Video</header>
-  <div id="video-player" style="text-align:center; padding:20px;">
-    <p>Memuat video...</p>
+  <div class="header">
+    <div class="burger" onclick="toggleMenu()">
+      <div></div><div></div><div></div>
+    </div>
+    <h1>Detail Video</h1>
   </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+  <div id="sideMenu" class="side-menu">
+    <a href="index.html">Beranda</a>
+    <a href="#" onclick="filterKategori('semua')">Semua</a>
+    <a href="#" onclick="filterKategori('populer')">Populer</a>
+    <a href="#" onclick="filterKategori('indo')">INDO</a>
+    <a href="#" onclick="filterKategori('subindo')">SUB INDO</a>
+    <a href="#" onclick="filterKategori('asian')">ASIAN</a>
+    <a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a>
+    <a href="#" onclick="filterKategori('cosplay')">COSPLAY</a>
+    <a href="#" onclick="filterKategori('bule')">BULE</a>
+    <a href="admin.html">Admin Panel</a>
+  </div>
 
-    fetch('data.json')
-      .then(res => res.json())
-      .then(data => {
-        const video = data[id];
-        if (!video) {
-          document.getElementById("video-player").innerHTML = "<p>Video tidak ditemukan</p>";
-          return;
-        }
+  <div class="video-container" id="videoContainer"></div>
+  <h2 style="padding: 10px;">Episode Lainnya</h2>
+  <div id="episodeList" class="video-list"></div>
 
-        document.title = video.judul + " | DUNIA VIRAL";
-        document.getElementById("video-player").innerHTML = `
-          <h2>${video.judul}</h2>
-          <iframe src="${video.link}" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
-        `;
-      });
-  </script>
+  <script src="video-script.js"></script>
 </body>
 </html>
