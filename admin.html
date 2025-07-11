@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Generator - DUNIA VIRAL</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    input, select, textarea, button {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    input, select, textarea {
+      background: #222;
+      color: white;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    textarea {
+      height: 100px;
+    }
+    .output {
+      margin-top: 20px;
+      background: #222;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Generator JSON Video</h2>
+  <form id="adminForm">
+    <input type="text" id="judul" placeholder="Judul Video" required />
+    <input type="text" id="thumbnail" placeholder="Link Thumbnail" required />
+    <input type="text" id="link" placeholder="Link Video" required />
+    <input type="text" id="pemain" placeholder="Nama Pemain" required />
+    <select id="kategori" required>
+      <option value="">Pilih Kategori</option>
+      <option value="indo">INDO</option>
+      <option value="subindo">SUB INDO</option>
+      <option value="asian">ASIAN</option>
+      <option value="uncensored">UNCENSORED</option>
+      <option value="cosplay">COSPLAY</option>
+      <option value="bule">BULE</option>
+      <option value="populer">POPULER</option>
+    </select>
+    <button type="submit">Buat JSON</button>
+  </form>
+
+  <div class="output">
+    <h3>Hasil JSON:</h3>
+    <textarea id="jsonOutput" readonly></textarea>
+  </div>
+
+  <script>
+    const form = document.getElementById('adminForm');
+    const output = document.getElementById('jsonOutput');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const video = {
+        judul: document.getElementById('judul').value,
+        thumbnail: document.getElementById('thumbnail').value,
+        link: document.getElementById('link').value,
+        pemain: document.getElementById('pemain').value,
+        kategori: document.getElementById('kategori').value
+      };
+
+      const jsonStr = JSON.stringify(video, null, 2);
+      output.value = jsonStr;
+    });
+  </script>
+</body>
+</html>
