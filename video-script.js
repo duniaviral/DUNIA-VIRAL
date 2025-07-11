@@ -1,40 +1,40 @@
+// Ambil parameter judul dari URL
 const urlParams = new URLSearchParams(window.location.search);
-const pemain = urlParams.get("pemain");
+const judul = urlParams.get("judul");
 
+// Fetch data dari JSON
 fetch("data.json")
-  .then(res => res.json())
-  .then(data => {
-    const videoUtama = data.find(v => v.pemain === pemain);
-    const videoLain = data.filter(v => v.pemain === pemain);
+  .then((res) => res.json())
+  .then((data) => {
+    // Cari video utama berdasarkan judul
+    const videoUtama = data.find((v) => v.judul === judul);
 
-    const videoPlayer = document.getElementById("videoPlayer");
-    const judulVideo = document.getElementById("judulVideo");
+    if (!videoUtama) {
+      document.getElementById("videoPlayer").innerHTML = "<p>Video tidak ditemukan</p>";
+      return;
+    }
 
-    if (videoUtama) {
-      judulVideo.textContent = videoUtama.judul;
-      videoPlayer.innerHTML = `
-        <iframe src="${videoUtama.link}" allowfullscreen></iframe>
+    // Tampilkan iframe video utama
+    document.getElementById("videoPlayer").innerHTML = `
+      <iframe src="${videoUtama.link}" allowfullscreen></iframe>
+    `;
+    document.getElementById("judulVideo").textContent = videoUtama.judul;
+
+    // Tampilkan video lainnya dari pemain yang sama
+    const videoList = document.getElementById("videoList");
+    const videoLainnya = data.filter(
+      (v) => v.pemain === videoUtama.pemain && v.judul !== videoUtama.judul
+    );
+
+    videoLainnya.forEach((v) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <a href="video.html?judul=${encodeURIComponent(v.judul)}">
+          <img src="${v.thumbnail}" alt="${v.judul}" />
+          <div class="judul">${v.judul}</div>
+        </a>
       `;
-    } else {
-      judulVideo.textContent = "Video tidak ditemukan.";
-    }
-
-    const videoLainnya = document.getElementById("videoLainnya");
-    if (videoLain.length > 1) {
-      videoLainnya.innerHTML = `<h3>Video Lainnya dari ${pemain}</h3><div class="video-list"></div>`;
-      const list = videoLainnya.querySelector(".video-list");
-      videoLain.forEach(v => {
-        if (v.link !== videoUtama.link) {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-            <a href="video.html?pemain=${encodeURIComponent(v.pemain)}&judul=${encodeURIComponent(v.judul)}">
-              <img src="${v.thumbnail}" alt="${v.judul}">
-              <p class="judul">${v.judul}</p>
-            </a>
-          `;
-          list.appendChild(card);
-        }
-      });
-    }
+      videoList.appendChild(card);
+    });
   });
