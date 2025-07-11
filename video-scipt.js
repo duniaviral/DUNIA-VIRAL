@@ -1,54 +1,25 @@
-let data = [];
+const urlParams = new URLSearchParams(window.location.search);
+const judul = urlParams.get('judul');
 
 fetch('data.json')
   .then(res => res.json())
-  .then(json => {
-    data = json;
-    tampilkanDetail();
-  });
+  .then(data => {
+    const video = data.find(v => v.judul === judul);
+    const el = document.getElementById('videoContainer');
 
-function tampilkanDetail() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const judul = urlParams.get('judul');
-  const video = data.find(v => v.judul === judul);
+    if (!video) {
+      el.innerHTML = "<p style='color:red'>Video tidak ditemukan.</p>";
+      return;
+    }
 
-  if (!video) {
-    document.getElementById('videoContainer').innerHTML = '<p style="color:red; padding:10px;">Video tidak ditemukan.</p>';
-    return;
-  }
+    const related = data.filter(v => v.pemain === video.pemain && v.judul !== video.judul);
 
-  document.title = `${video.judul} - DUNIA VIRAL`;
-
-  const container = document.getElementById('videoContainer');
-  container.innerHTML = `
-    <h2 style="padding: 10px;">${video.judul}</h2>
-    <div style="padding:10px;">
-      <iframe src="${video.link}" frameborder="0" allowfullscreen style="width:100%; height:360px; border-radius:6px;"></iframe>
-    </div>
-  `;
-
-  tampilkanEpisode(video.pemain, video.judul);
-}
-
-function tampilkanEpisode(pemain, judulSekarang) {
-  const list = document.getElementById('episodeList');
-  const hasil = data.filter(v => v.pemain === pemain && v.judul !== judulSekarang);
-  list.innerHTML = '';
-
-  hasil.forEach(video => {
-    const item = document.createElement('div');
-    item.className = 'video-item';
-    item.innerHTML = `
-      <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-        <img src="${video.thumbnail}" alt="${video.judul}">
-        <h3>${video.judul}</h3>
-      </a>
+    el.innerHTML = `
+      <h2 style="color:white;">${video.judul}</h2>
+      <iframe src="${video.link}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+      <h3 style="color:white;">Episode Lain (${video.pemain}):</h3>
+      <ul style="color:white;">
+        ${related.map(v => `<li><a href="video.html?judul=${encodeURIComponent(v.judul)}" style="color:lightblue">${v.judul}</a></li>`).join('')}
+      </ul>
     `;
-    list.appendChild(item);
   });
-}
-
-function toggleMenu() {
-  const menu = document.getElementById('sideMenu');
-  menu.classList.toggle('open');
-}
