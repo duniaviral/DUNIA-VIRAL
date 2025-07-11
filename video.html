@@ -18,6 +18,14 @@
       max-width: 960px;
       margin: 0 auto;
       padding: 20px 10px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      text-align: center;
+      color: #fff;
     }
 
     iframe {
@@ -28,14 +36,11 @@
       margin-bottom: 20px;
     }
 
-    h2 {
-      font-size: 22px;
-      margin-bottom: 16px;
-    }
-
     h3 {
       font-size: 20px;
       margin-bottom: 10px;
+      text-align: left;
+      color: #fff;
     }
 
     .related-videos {
@@ -43,6 +48,7 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 30px;
+      justify-content: center;
     }
 
     .related-videos div {
@@ -51,6 +57,11 @@
       border-radius: 8px;
       overflow: hidden;
       text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .related-videos div:hover {
+      transform: scale(1.05);
     }
 
     .related-videos img {
@@ -77,10 +88,16 @@
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
+      transition: background 0.3s;
     }
 
-    a {
-      color: #66ccff;
+    .back-button a:hover {
+      background: #666;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
