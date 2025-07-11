@@ -51,7 +51,7 @@
     <input type="text" id="judul" placeholder="Judul Video" required />
     <input type="text" id="thumbnail" placeholder="Link Thumbnail" required />
     <input type="text" id="link" placeholder="Link Video" required />
-    <input type="text" id="pemain" placeholder="Nama Pemain" required />
+    <input type="text" id="kategori" placeholder="Kategori" required />
     <select id="kategori" required>
       <option value="">Pilih Kategori</option>
       <option value="indo">INDO</option>
@@ -81,8 +81,8 @@
         judul: document.getElementById('judul').value,
         thumbnail: document.getElementById('thumbnail').value,
         link: document.getElementById('link').value,
-        pemain: document.getElementById('pemain').value,
-        kategori: document.getElementById('kategori').value
+        pemain: document.getElementById('kategori').value,
+        kategori: document.getElementById('pemain').value
       };
 
       const jsonStr = JSON.stringify(video, null, 2);
