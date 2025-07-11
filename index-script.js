@@ -1,52 +1,38 @@
-const videoList = document.getElementById("videoList");
-const searchInput = document.getElementById("searchInput");
-
-let allData = [];
-
 fetch("data.json")
-  .then(res => res.json())
+  .then(response => response.json())
   .then(data => {
-    allData = data;
-    renderVideos(allData);
+    const videoContainer = document.getElementById("videoContainer");
+
+    // Hitung jumlah video per pemain
+    const pemainCount = {};
+    data.forEach(video => {
+      pemainCount[video.pemain] = (pemainCount[video.pemain] || 0) + 1;
+    });
+
+    // Ambil 1 video per pemain
+    const pemainVideoMap = {};
+    data.forEach(video => {
+      if (!pemainVideoMap[video.pemain]) {
+        pemainVideoMap[video.pemain] = video;
+      }
+    });
+
+    // Urutkan pemain berdasarkan jumlah video (populer duluan)
+    const sortedPemain = Object.keys(pemainVideoMap).sort((a, b) => {
+      return (pemainCount[b] || 0) - (pemainCount[a] || 0);
+    });
+
+    // Tampilkan
+    sortedPemain.forEach(pemain => {
+      const video = pemainVideoMap[pemain];
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <a href="video.html?judul=${encodeURIComponent(video.judul)}">
+          <img src="${video.thumbnail}" alt="${video.judul}" />
+          <p>${video.pemain}</p>
+        </a>
+      `;
+      videoContainer.appendChild(card);
+    });
   });
-
-function renderVideos(data) {
-  videoList.innerHTML = "";
-  data.forEach(video => {
-    const div = document.createElement("div");
-    div.className = "video-card";
-    div.setAttribute("data-kategori", video.kategori || "semua");
-
-    div.innerHTML = `
-      <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-        <img src="${video.thumbnail}" alt="${video.judul}">
-        <p>${video.judul}</p>
-      </a>
-    `;
-    videoList.appendChild(div);
-  });
-}
-
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.toLowerCase();
-  const filtered = allData.filter(video =>
-    video.judul.toLowerCase().includes(query)
-  );
-  renderVideos(filtered);
-});
-
-function filterKategori(kategori) {
-  if (kategori === "semua") {
-    renderVideos(allData);
-  } else {
-    const filtered = allData.filter(video =>
-      (video.kategori || "").toLowerCase() === kategori.toLowerCase()
-    );
-    renderVideos(filtered);
-  }
-}
-
-function toggleMenu() {
-  const menu = document.getElementById("kategoriMenu");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
