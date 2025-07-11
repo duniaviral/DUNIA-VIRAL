@@ -1,79 +1,10 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DUNIA VIRAL</title>
-  <style>
-    body { background: #000; color: #fff; font-family: sans-serif; margin: 0; }
-    .header { background: #111; padding: 10px; text-align: center; position: relative; }
-    .header h1 { color: #fff; margin: 0; }
-    .burger {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: 30px;
-      height: 25px;
-      cursor: pointer;
-    }
-    .burger div {
-      background: white;
-      height: 4px;
-      margin: 5px 0;
-    }
-    .side-menu {
-      background: #222;
-      width: 220px;
-      position: fixed;
-      top: 0;
-      left: -220px;
-      height: 100%;
-      padding-top: 60px;
-      transition: 0.3s ease;
-      overflow-y: auto;
-    }
-    .side-menu a {
-      display: block;
-      padding: 10px 15px;
-      color: white;
-      text-decoration: none;
-    }
-    .side-menu a:hover {
-      background: #333;
-    }
-    .side-menu.open { left: 0; }
-    #searchInput {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      font-size: 16px;
-    }
-    .video-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 15px;
-      padding: 15px;
-    }
-    .video-item {
-      background: #111;
-      border-radius: 5px;
-      overflow: hidden;
-      transition: 0.2s ease;
-    }
-    .video-item:hover {
-      transform: scale(1.03);
-    }
-    .video-item img {
-      width: 100%;
-      display: block;
-    }
-    .video-item h3 {
-      font-size: 14px;
-      padding: 8px;
-      color: white;
-      margin: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="header">
@@ -97,62 +28,8 @@
   </div>
 
   <input type="text" id="searchInput" onkeyup="cariVideo()" placeholder="Cari video...">
-
   <div id="videoList" class="video-list"></div>
 
-  <script>
-    const data = [
-      {"judul": "andini vs adiknya","thumbnail": "https://img.doodcdn.io/snaps/zgg65d8rjx9b7ho7.jpg","link": "https://vide0.net/e/om95uaphl2vw","kategori": "indo","pemain": "andini"},
-      {"judul": "andini permata 2","thumbnail": "https://img.doodcdn.io/snaps/66gcxkoetxhczlq1.jpg","link": "https://vide0.net/e/uj7hov5n0l88","kategori": "indo","pemain": "andini"},
-      {"judul": "andini permata solo 3","thumbnail": "https://img.doodcdn.io/snaps/6eb7hr7tg5llqyei.jpg","link": "https://vide0.net/e/s8kbd6zhc41i","kategori": "indo","pemain": "andini"},
-      {"judul": "andini permata solo 4","thumbnail": "https://img.doodcdn.io/snaps/8lb2hwudu8o3dlmc.jpg","link": "https://vide0.net/e/su92r5gw02u5","kategori": "indo","pemain": "andini"}
-    ];
-
-    function tampilkanVideo(filter = 'semua') {
-      const list = document.getElementById('videoList');
-      list.innerHTML = '';
-      const hasil = data.filter(v => filter === 'semua' || v.kategori === filter);
-      hasil.forEach(video => {
-        const item = document.createElement('div');
-        item.className = 'video-item';
-        item.innerHTML = `
-          <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-            <img src="${video.thumbnail}" alt="${video.judul}">
-            <h3>${video.judul}</h3>
-          </a>
-        `;
-        list.appendChild(item);
-      });
-    }
-
-    function filterKategori(kat) {
-      tampilkanVideo(kat);
-    }
-
-    function cariVideo() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const hasil = data.filter(video => video.judul.toLowerCase().includes(input));
-      const list = document.getElementById('videoList');
-      list.innerHTML = '';
-      hasil.forEach(video => {
-        const item = document.createElement('div');
-        item.className = 'video-item';
-        item.innerHTML = `
-          <a href="video.html?judul=${encodeURIComponent(video.judul)}">
-            <img src="${video.thumbnail}" alt="${video.judul}">
-            <h3>${video.judul}</h3>
-          </a>
-        `;
-        list.appendChild(item);
-      });
-    }
-
-    function toggleMenu() {
-      const menu = document.getElementById('sideMenu');
-      menu.classList.toggle('open');
-    }
-
-    tampilkanVideo();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
