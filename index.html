@@ -2,45 +2,31 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DUNIA VIRAL</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header>
     <div class="logo">DUNIA VIRAL</div>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <nav class="menu" id="menu">
+      <input type="text" id="searchInput" placeholder="Cari pemain..." oninput="filterVideos()" />
+      <ul class="kategori-menu">
+        <li><a href="#" onclick="filterKategori('semua')">SEMUA</a></li>
+        <li><a href="#" onclick="filterKategori('populer')">POPULER</a></li>
+        <li><a href="#" onclick="filterKategori('indo')">INDO</a></li>
+        <li><a href="#" onclick="filterKategori('subindo')">SUB INDO</a></li>
+        <li><a href="#" onclick="filterKategori('asian')">ASIAN</a></li>
+        <li><a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a></li>
+        <li><a href="#" onclick="filterKategori('cosplay')">COSPLAY</a></li>
+        <li><a href="#" onclick="filterKategori('bule')">BULE</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <nav class="kategori-menu" id="menuKategori">
-    <ul>
-      <li><a href="#" onclick="filterKategori('semua')">SEMUA</a></li>
-      <li><a href="#" onclick="filterKategori('populer')">POPULER</a></li>
-      <li><a href="#" onclick="filterKategori('indo')">INDO</a></li>
-      <li><a href="#" onclick="filterKategori('subindo')">SUB INDO</a></li>
-      <li><a href="#" onclick="filterKategori('asian')">ASIAN</a></li>
-      <li><a href="#" onclick="filterKategori('uncensored')">UNCENSORED</a></li>
-      <li><a href="#" onclick="filterKategori('cosplay')">COSPLAY</a></li>
-      <li><a href="#" onclick="filterKategori('bule')">BULE</a></li>
-    </ul>
-  </nav>
-
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Cari pemain..." />
-  </div>
-
-  <main>
-    <div id="videoContainer" class="video-grid"></div>
-  </main>
-
-  <footer><p>© DUNIA VIRAL 2025</p></footer>
+  <main id="videoContainer"></main>
 
   <script src="index-script.js"></script>
-  <script>
-    function toggleMenu() {
-      document.getElementById('menuKategori').classList.toggle('show');
-    }
-  </script>
 </body>
 </html>
