@@ -1,106 +1,79 @@
 body {
   margin: 0;
-  font-family: sans-serif;
   background: #111;
   color: #fff;
+  font-family: sans-serif;
 }
 
 header {
-  background: #222;
-  color: #fff;
-  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #222;
+  padding: 10px 20px;
 }
 
 .logo {
-  font-weight: bold;
   font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .hamburger {
   font-size: 1.5rem;
+  background: none;
+  color: #fff;
+  border: none;
   cursor: pointer;
 }
 
-.kategori-menu {
+.menu {
   display: none;
+  flex-direction: column;
   background: #333;
+  padding: 10px;
 }
 
-.kategori-menu.show {
-  display: block;
+.menu.active {
+  display: flex;
 }
 
-.kategori-menu ul {
+.kategori-menu li {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 5px 0;
 }
 
-.kategori-menu ul li a {
-  display: block;
-  padding: 0.8rem;
+.kategori-menu a {
   color: #fff;
   text-decoration: none;
-  border-bottom: 1px solid #444;
 }
 
-.kategori-menu ul li a:hover {
-  background-color: #444;
+#searchInput {
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
-.search-container {
+main {
   padding: 1rem;
-  text-align: center;
-}
-
-.search-container input {
-  width: 90%;
-  padding: 0.6rem;
-  border-radius: 8px;
-  border: none;
-}
-
-.video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1rem;
-  padding: 1rem;
 }
 
 .card {
-  background: #1a1a1a;
+  background: #222;
   border-radius: 10px;
-  text-align: center;
   overflow: hidden;
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: scale(1.03);
+  text-align: center;
+  padding-bottom: 10px;
 }
 
 .card img {
   width: 100%;
-  border-radius: 8px;
+  border-bottom: 2px solid #333;
 }
 
-.card .judul {
-  color: #fff;
+.card h4 {
   font-size: 0.9rem;
-  margin: 0.5rem 0 0.2rem;
-}
-
-.card .pemain {
-  color: #aaa;
-  font-size: 0.75rem;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.8rem;
-  background: #222;
+  color: #fff;
+  margin: 0.5rem 0;
 }
